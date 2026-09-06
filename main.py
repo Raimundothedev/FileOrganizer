@@ -42,20 +42,16 @@ def inputs():
 
 def organize(files_dir, file_type, diretory):
 
-    if file_type == "1":
-        selected_type = IMAGES
-    elif file_type == "2":
-        selected_type = VIDEOS
-    elif file_type == "3":
-        selected_type = DOCUMENTS
-    elif file_type == "4":
-        selected_type = SOUNDS
-    elif file_type == "5":
-        selected_type = PROGRAMS
-    elif file_type == "6":
-        selected_type = COMPRESSED
-    else:
-        pass
+    types = {
+    "1": IMAGES,
+    "2": VIDEOS,
+    "3": DOCUMENTS,
+    "4": SOUNDS,
+    "5": PROGRAMS,
+    "6": COMPRESSED
+}
+
+    selected_type = types.get(file_type)
 
     diretory.mkdir(exist_ok=True)
 
