@@ -1,4 +1,4 @@
-#FileOrganizer
+# FileOrganizer
 
 Organizador de arquivos desenvolvido em Python que separa automaticamente arquivos em pastas de acordo com seus tipos.
 
@@ -7,13 +7,17 @@ Organizador de arquivos desenvolvido em Python que separa automaticamente arquiv
 - **Organização de imagens, vídeos, documentos, áudios, programas e arquivos compactados.**
 - **Interface via terminal.**
 
-## Como usar:
+## Como usar
 
-- python main.py
+Execute o programa com:
+
+```bash
+python main.py
+```
 
 ## Status
 
-Em desenvolvimento, em breve UI via customtkinter
+Em desenvolvimento. Em breve, interface gráfica via CustomTkinter.
 
 ## Objetivo
 
