@@ -57,7 +57,7 @@ class App(ctk.CTk):
         )
         self.subtitle_label.pack(pady=(0, 25))
 
-        # Diretório
+        # Directory path
 
         self.label_dir = ctk.CTkLabel(
             self.main_frame,
@@ -116,7 +116,7 @@ class App(ctk.CTk):
             padx=(7, 0)
         )
 
-        # Tipo
+        # File type
 
         self.label_type = ctk.CTkLabel(
             self.main_frame,
@@ -154,7 +154,7 @@ class App(ctk.CTk):
             pady=(7, 20)
         )
 
-        # Pasta de destino
+        # Directory folder
 
         self.label_dir_name = ctk.CTkLabel(
             self.main_frame,
@@ -182,7 +182,7 @@ class App(ctk.CTk):
             pady=(7, 25)
         )
 
-        # Organizar
+        # Organize button
 
         self.btn_organize = ctk.CTkButton(
             self.main_frame,
@@ -198,7 +198,7 @@ class App(ctk.CTk):
         )
         self.btn_organize.pack(pady=(0, 25))
 
-        # Github Button
+        # Github button
 
 
         self.github_link = ctk.CTkLabel(
@@ -224,6 +224,8 @@ class App(ctk.CTk):
     # Functions
     #========================
 
+    # Select directory
+
     def select_dir(self):
         self.files_dir = filedialog.askdirectory()
         files_dir = self.files_dir
@@ -234,6 +236,9 @@ class App(ctk.CTk):
             self.btn_dir.configure(
                 text=f"{files_dir}"
             )
+
+    # Deselect directory
+
     def deselect_dir(self):
         self.files_dir = None
 
@@ -242,19 +247,24 @@ class App(ctk.CTk):
                             text=f"Selecionar pasta"
                         )
 
+    # Get file type
+
     def get_file_type(self, file_type):
         self.file_type = file_type
         return self.file_type
+
+    # Get file input
 
     def get_file_input(self):
         self.file_input = self.dir_name_input.get().strip()
         return self.file_input
         
+    # Organize()
 
     def organize(self):
         if not self.get_file_input() or not self.file_type or not self.files_dir:
             input_error = messagebox.showwarning(
-                "INPUT ERROR",
+                "Erro ao validar os inputs",
                 "É necessario preencher todas as informações disponíveis."
             )
             return
@@ -293,8 +303,6 @@ class App(ctk.CTk):
         )
 
 
-    
-        
 
 def start_ui():
     window = App()
