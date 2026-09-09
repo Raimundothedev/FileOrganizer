@@ -4,6 +4,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from pathlib import Path
 import organizer
+import webbrowser
 
 ctk.set_appearance_mode(Config.THEME)
 
@@ -24,78 +25,200 @@ class App(ctk.CTk):
 
     def create_widgets(self):
 
-        self.title_label = ctk.CTkLabel(
+        self.main_frame = ctk.CTkFrame(
             self,
-            text="FileOrganizer",
-            font=ctk.CTkFont(size=28, weight="bold",family="Georgia")
+            corner_radius=18
         )
-        self.title_label.pack(pady=20)
+        self.main_frame.pack(
+            padx=50,
+            pady=35,
+            fill="both",
+            expand=True
+        )
+
+        self.title_label = ctk.CTkLabel(
+            self.main_frame,
+            text="FileOrganizer",
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=32,
+                weight="bold"
+            )
+        )
+        self.title_label.pack(pady=(30, 5))
+
+        self.subtitle_label = ctk.CTkLabel(
+            self.main_frame,
+            text="Organize seus arquivos de forma simples e rápida.",
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=14
+            )
+        )
+        self.subtitle_label.pack(pady=(0, 25))
+
+        # Diretório
 
         self.label_dir = ctk.CTkLabel(
-            self,
-            text="Selecione um diretório:",
-            font=ctk.CTkFont(size=18,family="Georgia")
+            self.main_frame,
+            text="DIRETÓRIO",
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=13,
+                weight="bold"
+            )
         )
-        self.label_dir.pack(pady=(20, 0))
+        self.label_dir.pack(anchor="w", padx=80)
 
-        self.dir_frame = ctk.CTkFrame(self)
-        self.dir_frame.pack(pady=(10, 0))
+        self.dir_frame = ctk.CTkFrame(
+            self.main_frame,
+            fg_color="transparent"
+        )
+        self.dir_frame.pack(
+            fill="x",
+            padx=80,
+            pady=(7, 20)
+        )
 
         self.btn_dir = ctk.CTkButton(
             self.dir_frame,
             text="Selecionar pasta",
-            font=ctk.CTkFont(family="Georgia"),
+            height=40,
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=14
+            ),
             command=self.select_dir
         )
-        self.btn_dir.pack(side="left")
+        self.btn_dir.pack(
+            side="left",
+            fill="x",
+            expand=True
+        )
 
         self.btn_deselect_dir = ctk.CTkButton(
             self.dir_frame,
-            text="X",
-            width=40,
-            font=("Georgia", 16, "bold"),
+            text="×",
+            width=45,
+            height=40,
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=20,
+                weight="bold"
+            ),
             command=self.deselect_dir,
-            fg_color="red",
-            hover_color="darkred"
+            fg_color="transparent",
+            hover_color=("gray80", "gray25"),
+            text_color=("gray20", "gray90")
         )
-        self.btn_deselect_dir.pack(side="left", padx=(5, 0))
+        self.btn_deselect_dir.pack(
+            side="left",
+            padx=(7, 0)
+        )
+
+        # Tipo
 
         self.label_type = ctk.CTkLabel(
-                    self,
-                    text="Selecione o arquivo que quer organizar: ",
-                    font=ctk.CTkFont(size=18,family="Georgia"),
+            self.main_frame,
+            text="TIPO DE ARQUIVO",
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=13,
+                weight="bold"
+            )
         )
-        self.label_type.pack(pady=(20, 0))
+        self.label_type.pack(anchor="w", padx=80)
 
         self.opt_type = ctk.CTkOptionMenu(
-            self,
-            values=["Imagens", "Vídeos", "Documentos", "Áudios", "Programas", "Compactados", "HTML", "Asesprite"],
-            font=ctk.CTkFont(family="Georgia"),
+            self.main_frame,
+            values=[
+                "Imagens",
+                "Vídeos",
+                "Documentos",
+                "Áudios",
+                "Programas",
+                "Compactados",
+                "HTML",
+                "Asesprite"
+            ],
+            height=40,
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=14
+            ),
             command=self.get_file_type
         )
-        self.opt_type.pack(pady=(10, 0))
+        self.opt_type.pack(
+            fill="x",
+            padx=80,
+            pady=(7, 20)
+        )
+
+        # Pasta de destino
 
         self.label_dir_name = ctk.CTkLabel(
-                            self,
-                            text="Digite o nome da pasta que deseja criar/usar: ",
-                            font=ctk.CTkFont(size=18,family="Georgia")
-                        )
-        self.label_dir_name.pack(pady=(20, 0))
+            self.main_frame,
+            text="PASTA DE DESTINO",
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=13,
+                weight="bold"
+            )
+        )
+        self.label_dir_name.pack(anchor="w", padx=80)
 
         self.dir_name_input = ctk.CTkEntry(
-            self,
-            placeholder_text="Examplefolder",
-            width=200,
+            self.main_frame,
+            placeholder_text="Ex.: Imagens",
+            height=40,
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=14
+            )
         )
-        self.dir_name_input.pack(pady=(10, 0))
+        self.dir_name_input.pack(
+            fill="x",
+            padx=80,
+            pady=(7, 25)
+        )
+
+        # Organizar
 
         self.btn_organize = ctk.CTkButton(
-            self,
-            text="Organizar",
-            font=ctk.CTkFont(family="Georgia"),
+            self.main_frame,
+            text="Organizar arquivos",
+            height=45,
+            width=250,
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=15,
+                weight="bold"
+            ),
             command=self.organize
         )
-        self.btn_organize.pack(pady=(10, 0))
+        self.btn_organize.pack(pady=(0, 25))
+
+        # Github Button
+
+
+        self.github_link = ctk.CTkLabel(
+            self.main_frame,
+            text=f"{Config.GIT_HUB_REPOSITORY}",
+            text_color="#4A90E2",
+            cursor="hand2",
+            font=ctk.CTkFont(
+                family="Segoe UI",
+                size=14,
+                underline=True
+            )
+        )
+
+        self.github_link.pack(side="bottom")
+
+        self.github_link.bind(
+            "<Button-1>",
+            lambda event: webbrowser.open(Config.GIT_HUB_REPOSITORY)
+        )
 
     #========================
     # Functions
