@@ -121,16 +121,26 @@ class App(ctk.CTk):
 
     def get_file_type(self, file_type):
         self.file_type = file_type
+        return self.file_type
 
     def get_file_input(self):
         self.file_input = self.dir_name_input.get().strip()
+        return self.file_input
         
 
     def organize(self):
+        if not self.get_file_input() or not self.file_type or not self.files_dir:
+            input_error = messagebox.showwarning(
+                "INPUT ERROR",
+                "É necessario preencher todas as informações disponíveis."
+            )
+            return
         self.get_file_input()
+
         directory = Path(self.files_dir) / self.file_input
         file_type = self.file_type
         files_dir = self.files_dir
+
 
         confirm = messagebox.askyesno(
             "Confirmar organização",
