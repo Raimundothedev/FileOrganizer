@@ -17,7 +17,9 @@ python main.py
 
 ## Status
 
-Em desenvolvimento. Em breve, interface gráfica via CustomTkinter.
+Em desenvolvimento.
+
+Concluida a fase de criação da UI. Em breve, histórico de organizações.
 
 ## Objetivo
 

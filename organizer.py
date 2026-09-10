@@ -34,46 +34,15 @@ def organize(files_dir, file_type, directory):
     directory.mkdir(exist_ok=True)
 
     moved = False
-    moved_files = 0
+    moved_files = []
 
     for file in files_dir.iterdir():
         if file.is_file() and file.suffix.lower() in selected_type:
-            print(f"moved {file.name} to {directory}")
             file.rename(directory / file.name)
             moved = True
-            moved_files += 1
+            moved_files.append(file.name)
 
     return moved, moved_files
 
-def list_files():
-    while True:
-        file_dir = Path(input("\nDigite o caminho da pasta que deseja ver:" \
-                "\n> "))
-        if file_dir.exists():
-            title = (f"=== Arquivos em {file_dir} ===")
-            print(title)
-            for file in file_dir.iterdir():
-                if file.is_file:
-                    
-                    print(f"> {file.name}                 ")
-            print("=" * len(title))
-            exit = input("Voltar? (y/n)" \
-            "\n> ")
-            if exit == 'y':
-                break
-            elif exit == 'n':
-                continue
-            else:
-                print("Digite uma opção válida")
-                continue
-
-
-
-
-            
-            
-        else:
-            print("\nDigite um caminho válido")
-            continue
 
 

@@ -12,7 +12,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title(f"FileOrganizer | {Config.VERSION}")
-        self.geometry("900x600")
+        self.geometry("1280x720")
 
         self.create_widgets()
 
@@ -198,6 +198,27 @@ class App(ctk.CTk):
         )
         self.btn_organize.pack(pady=(0, 25))
 
+        # Log
+
+        self.log_label = ctk.CTkLabel(
+                    self.main_frame,
+                    text="Log",
+                    font=ctk.CTkFont(
+                        family="Consolas",
+                        size=15,
+                        weight="bold"
+                    )
+                )
+        self.log_label.pack(side="top", anchor="w")
+        
+        self.log_frame = ctk.CTkScrollableFrame(
+            self.main_frame,
+            corner_radius=18,
+            width=500,
+            height=300
+        )
+        self.log_frame.pack(fill="x")
+
         # Github button
 
 
@@ -210,7 +231,8 @@ class App(ctk.CTk):
                 family="Segoe UI",
                 size=14,
                 underline=True
-            )
+            ),
+            
         )
 
         self.github_link.pack(side="bottom")
@@ -291,16 +313,29 @@ class App(ctk.CTk):
             file_type,
             directory
         )
+        for file_name in moved_files:
+            self.log(file_name, directory)
+
         if moved:
             messagebox.showinfo(
             "FileOrganizer",
-            f"Organização concluida com êxito!\n Foram movidos {moved_files} arquivos."
+            f"Organização concluida com êxito!\n Foram movidos {len(moved_files)} arquivos."
         )
         else:
             messagebox.showinfo(
             "FileOrganizer",
             "Nenhum arquivo foi encontrado"
         )
+
+    # Log
+
+    def log(self, file_name, directory):
+        log_file = ctk.CTkLabel(
+            self.log_frame,
+            text=f"moved {file_name} to {directory}"
+        )
+        log_file.pack(anchor="w")
+
 
 
 
